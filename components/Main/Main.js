@@ -1,6 +1,6 @@
-import Headline from '../components/Headline'
-import Links from '../components/Links'
-import styles from '../styles/Home.module.css'
+import Headline from '../Headline/Headline'
+import Links from '../Links/Links'
+import styles from '../Main/Main.module.css'
 
 import React from 'react'
 

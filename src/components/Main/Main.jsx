@@ -1,7 +1,6 @@
-import Headline from '../Headline/Headline'
-import Links from '../Links/Links'
-import styles from '../Main/Main.module.css'
-
+import Headline from 'src/components/Headline/Headline'
+import Links from 'src/components/Links/Links'
+import styles from 'src/components/Main/Main.module.css'
 import React from 'react'
 
 export const Main = (props) => {

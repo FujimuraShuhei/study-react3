@@ -1,8 +1,6 @@
 import Head from 'next/head'
 import Footer from '../components/Footer/Footer'
 import { Header } from '../components/Header/Header'
-import Headline from '../components/Headline/Headline'
-import Links from '../components/Links/Links'
 import Main from '../components/Main/Main'
 import styles from '../styles/Home.module.css'
 

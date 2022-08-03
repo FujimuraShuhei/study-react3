@@ -17,8 +17,8 @@ export default function Home() {
   }, [count]);
 
   const handleChange = useCallback((e) => {
-    if (e.target.value.length > 5) {
-      alert("5文字以内にしてください");
+    if (e.target.value.length > 10) {
+      alert("10文字以内にしてください");
       return;
     }
     setText(e.target.value);

@@ -23,9 +23,10 @@ const ITEMS = [
   }
 ]
 
-export const Links = () => {
+export const Links = ( items, handleReduce ) => {
   return (
     <div className={styles.grid}>
+      <button onClick={handleReduce}>減らす</button>
       {ITEMS.map((item) => {
         return (
           <a key={item.href} href={item.href} className={styles.card}>

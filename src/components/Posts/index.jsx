@@ -1,9 +1,35 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
+
+const initialState = {
+  data: [],
+  loading: true,
+  error: null,
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "end": {
+      return {
+        ...state,
+        data: action.data,
+        loading: false,
+      };
+    }
+    case "error": {
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    }
+    default: {
+      throw new Error("no such action type!");
+    }
+  }
+};
 
 export const Posts = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, seterror] = useState(null);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const getPosts = useCallback(async () => {
     try {
@@ -12,32 +38,33 @@ export const Posts = () => {
         throw new Error('エラーは発生したため、データの取得に失敗しました。');
       }
       const json = await res.json();
-      setPosts(json);
+      dispatch({ type: "end", data: json })
     } catch (error) {
-      seterror(error);
+      dispatch({type: "error", error })
     }
-    setLoading(false);
   }, []);
 
   useEffect(() => {
     getPosts();
   }, [getPosts]);
 
+  if (state.loading) {
+    return <div>ローディング中</div>;
+  }
+
+  if (state.error) {
+    return <div>{state.error.message}</div>;
+  }
+
+  if (state.data.length === 0) {
+    return <div>データは空です</div>;
+  }
+
   return (
-    <div>
-      {loading ? (
-        <div>ローディング中</div>
-      ) : error ? (
-        <div>{error.message}</div>
-      ) : posts.length > 0 ? (
-        <ol>
-          {posts.map((post) => {
-            return <li key={posts.id}>{post.title}</li>;
-          })}
-        </ol>
-      ) : (
-        <div>データは空です</div>
-      )}
-    </div>
+    <ol>
+      {state.data.map((post) => {
+        return <li key={post.id}>{post.title}</li>;
+      })}
+    </ol>
   );
 };
